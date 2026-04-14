@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./reconciliation_report.schema.json",
+  "title": "ReconciliationReport",
+  "description": "Schema for the report returned by Vault.reconcile().",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "observed_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./_shared.schema.json#/$defs/itemId"
+      },
+      "uniqueItems": true
+    },
+    "missing_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./_shared.schema.json#/$defs/itemId"
+      },
+      "uniqueItems": true
+    },
+    "unexpected_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./_shared.schema.json#/$defs/itemId"
+      },
+      "uniqueItems": true
+    },
+    "is_balanced": {
+      "type": "boolean",
+      "readOnly": true,
+      "description": "Convenience field for serialized reports. Optional because the Python object exposes it as a property."
+    }
+  },
+  "required": [
+    "observed_ids",
+    "missing_ids",
+    "unexpected_ids"
+  ]
+}

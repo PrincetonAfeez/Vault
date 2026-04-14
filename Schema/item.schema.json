@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./item.schema.json",
+  "title": "Item",
+  "description": "Full persisted item model, including its custody chain.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "item_id": {
+      "$ref": "./_shared.schema.json#/$defs/itemId"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "category": {
+      "$ref": "./_shared.schema.json#/$defs/normalizedCategory"
+    },
+    "monetary_value": {
+      "$ref": "./_shared.schema.json#/$defs/moneyString"
+    },
+    "status": {
+      "$ref": "./_shared.schema.json#/$defs/itemStatus"
+    },
+    "condition": {
+      "$ref": "./_shared.schema.json#/$defs/itemCondition"
+    },
+    "current_holder": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Null unless the item is checked out."
+    },
+    "custody_chain": {
+      "type": "array",
+      "items": {
+        "$ref": "./custody_record.schema.json"
+      },
+      "default": [],
+      "description": "Ordered audit trail for the item."
+    }
+  },
+  "required": [
+    "item_id",
+    "name",
+    "category",
+    "monetary_value",
+    "status",
+    "condition",
+    "current_holder",
+    "custody_chain"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "checked_out"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "current_holder": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "available",
+              "reserved",
+              "retired"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "current_holder": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "item_id": "ITM-0002",
+      "name": "Aurora Necklace",
+      "category": "jewelry",
+      "monetary_value": "87500.00",
+      "status": "available",
+      "condition": "mint",
+      "current_holder": null,
+      "custody_chain": [
+        {
+          "timestamp": "2026-04-14T17:00:00Z",
+          "item_id": "ITM-0002",
+          "action": "checked_in",
+          "actor_name": "SYSTEM",
+          "actor_access_level": "MANAGER",
+          "notes": "Item registered in vault."
+        }
+      ]
+    }
+  ]
+}

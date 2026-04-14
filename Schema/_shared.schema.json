@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./_shared.schema.json",
+  "title": "Vault OS Shared Schema Definitions",
+  "$defs": {
+    "moneyString": {
+      "type": "string",
+      "pattern": "^-?(0|[1-9]\\\\d*)(\\\\.\\\\d{2})$",
+      "description": "Decimal monetary value serialized as a string to preserve exact cents.",
+      "examples": [
+        "1200.00",
+        "87500.00",
+        "0.00"
+      ]
+    },
+    "accessLevel": {
+      "type": "string",
+      "enum": [
+        "VISITOR",
+        "STAFF",
+        "SUPERVISOR",
+        "MANAGER",
+        "DIRECTOR"
+      ],
+      "description": "AccessLevel enum name from vault.domain.AccessLevel."
+    },
+    "itemStatus": {
+      "type": "string",
+      "enum": [
+        "available",
+        "checked_out",
+        "reserved",
+        "retired"
+      ],
+      "description": "ItemStatus enum value from vault.domain.ItemStatus."
+    },
+    "itemCondition": {
+      "type": "string",
+      "enum": [
+        "mint",
+        "good",
+        "fair",
+        "damaged"
+      ],
+      "description": "ItemCondition enum value from vault.domain.ItemCondition."
+    },
+    "auditAction": {
+      "type": "string",
+      "enum": [
+        "checked_in",
+        "checked_out",
+        "condition_changed",
+        "retired"
+      ],
+      "description": "AuditAction enum value from vault.domain.AuditAction."
+    },
+    "itemId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9._:-]+$",
+      "description": "Item identifier. The app emits ITM-#### ids by default but also allows custom ids.",
+      "examples": [
+        "ITM-0001",
+        "LEDGER-01"
+      ]
+    },
+    "normalizedCategory": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+      "description": "Normalized category string, matching vault.domain._normalize_category().",
+      "examples": [
+        "jewelry",
+        "classified",
+        "security_document"
+      ]
+    },
+    "utcDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp, typically UTC."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./item_snapshot.schema.json",
+  "title": "ItemSnapshot",
+  "description": "Read-only operational view returned by Vault methods and search results.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "item_id": {
+      "$ref": "./_shared.schema.json#/$defs/itemId"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "category": {
+      "$ref": "./_shared.schema.json#/$defs/normalizedCategory"
+    },
+    "monetary_value": {
+      "$ref": "./_shared.schema.json#/$defs/moneyString"
+    },
+    "status": {
+      "$ref": "./_shared.schema.json#/$defs/itemStatus"
+    },
+    "condition": {
+      "$ref": "./_shared.schema.json#/$defs/itemCondition"
+    },
+    "current_holder": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "item_id",
+    "name",
+    "category",
+    "monetary_value",
+    "status",
+    "condition",
+    "current_holder"
+  ]
+}

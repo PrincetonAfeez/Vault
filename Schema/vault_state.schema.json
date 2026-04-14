@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./vault_state.schema.json",
+  "title": "VaultState Export",
+  "description": "Suggested full-repository persistence/export format aligned with Vault.apply_restored_inventory() and item custody restoration helpers.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "generated_at": {
+      "$ref": "./_shared.schema.json#/$defs/utcDateTime"
+    },
+    "issue_sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "High-water item id sequence backing ITM-#### generation."
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "./item.schema.json"
+      },
+      "description": "Persisted vault inventory."
+    }
+  },
+  "required": [
+    "schema_version",
+    "generated_at",
+    "issue_sequence",
+    "items"
+  ],
+  "examples": [
+    {
+      "schema_version": "1.0.0",
+      "generated_at": "2026-04-14T18:00:00Z",
+      "issue_sequence": 3,
+      "items": []
+    }
+  ]
+}

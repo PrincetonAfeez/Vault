@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./custody_record.schema.json",
+  "title": "CustodyRecord",
+  "description": "Schema for a frozen audit entry in an item's custody chain.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "timestamp": {
+      "$ref": "./_shared.schema.json#/$defs/utcDateTime"
+    },
+    "item_id": {
+      "$ref": "./_shared.schema.json#/$defs/itemId"
+    },
+    "action": {
+      "$ref": "./_shared.schema.json#/$defs/auditAction"
+    },
+    "actor_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "description": "Human-readable actor name captured in the audit trail."
+    },
+    "actor_access_level": {
+      "$ref": "./_shared.schema.json#/$defs/accessLevel"
+    },
+    "notes": {
+      "type": "string",
+      "default": "",
+      "description": "Optional audit note captured during the action."
+    }
+  },
+  "required": [
+    "timestamp",
+    "item_id",
+    "action",
+    "actor_name",
+    "actor_access_level",
+    "notes"
+  ],
+  "examples": [
+    {
+      "timestamp": "2026-04-14T17:32:10Z",
+      "item_id": "ITM-0002",
+      "action": "checked_out",
+      "actor_name": "Ava Brooks",
+      "actor_access_level": "MANAGER",
+      "notes": "Issued for conservation review."
+    }
+  ]
+}

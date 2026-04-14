@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./vault_summary.schema.json",
+  "title": "VaultSummary",
+  "description": "Schema for the summary report returned by Vault.summary().",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "total_items": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "items_by_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checked_out": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reserved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "retired": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "available",
+        "checked_out",
+        "reserved",
+        "retired"
+      ]
+    },
+    "total_value_in_vault": {
+      "$ref": "./_shared.schema.json#/$defs/moneyString"
+    },
+    "total_value_checked_out": {
+      "$ref": "./_shared.schema.json#/$defs/moneyString"
+    }
+  },
+  "required": [
+    "total_items",
+    "items_by_status",
+    "total_value_in_vault",
+    "total_value_checked_out"
+  ]
+}
