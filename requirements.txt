@@ -1,0 +1,9 @@
+# vault-os — install from this repo (metadata and versions live in pyproject.toml).
+# Requires Python >= 3.11. Runtime uses the standard library only; [dev] pulls in pytest.
+#
+#   pip install -r requirements.txt
+#
+# Production-style editable install without test tools:
+#   pip install -e .
+
+-e .[dev]
